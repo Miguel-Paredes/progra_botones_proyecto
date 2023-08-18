@@ -31,8 +31,8 @@ public class Login {
                             closeLoginFrame();
                             frame.pack();
                             frame.setSize(400,200);
-                            frame.setVisible(true);
-                            }
+                            frame.setVisible(true);}
+
                         else if (seleccionar.equals("Cajero") && cajero.equals(usuario.getText()) && contracajero.equals(new String(contrasenia.getPassword()))) {
                             frame = new JFrame("Cajero");
                             frame.setContentPane(new Cajero().caje);
@@ -40,17 +40,16 @@ public class Login {
                             closeLoginFrame();
                             frame.pack();
                             frame.setSize(400,200);
-                            frame.setVisible(true);}
-                    }
+                            frame.setVisible(true);}}
+
                     else {
                         frame = new JFrame("Credenciales");
                         frame.setContentPane(new Credenciales().crede);
                         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         frame.pack();
                         frame.setSize(200, 200);
-                        frame.setVisible(true);
-                    }
-                }
+                        frame.setVisible(true);}}
+
                 else{
                     frame = new JFrame("Incorrecto");
                     frame.setContentPane(new Incorrecto().inco);
@@ -58,8 +57,7 @@ public class Login {
                     frame.pack();
                     frame.setSize(200, 200);
                     frame.setVisible(true);
-                    hayInformacion=true;
-                }
+                    hayInformacion=true;}
 
                 if (seleccionar.equals("Seleccione") && hayInformacion==false){
                     frame = new JFrame("Incorrecto");
@@ -74,8 +72,7 @@ public class Login {
 
     private void closeLoginFrame() {
         JFrame loginFrame = (JFrame) SwingUtilities.getWindowAncestor(JPanel);
-        loginFrame.dispose();
-    }
+        loginFrame.dispose();}
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Login");
@@ -83,6 +80,5 @@ public class Login {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setSize(400, 200);
-        frame.setVisible(true);
-    }
+        frame.setVisible(true);}
 }

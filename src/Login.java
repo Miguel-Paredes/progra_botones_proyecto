@@ -27,11 +27,20 @@ public class Login {
                         if (seleccionar.equals("Administrador") && admin.equals(usuario.getText()) && contradmin.equals(new String(contrasenia.getPassword()))) {
                             frame = new JFrame("Administrador");
                             frame.setContentPane(new Administrador().admi);
-                            ingreso=true;}
+                            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                            closeLoginFrame();
+                            frame.pack();
+                            frame.setSize(400,200);
+                            frame.setVisible(true);
+                            }
                         else if (seleccionar.equals("Cajero") && cajero.equals(usuario.getText()) && contracajero.equals(new String(contrasenia.getPassword()))) {
                             frame = new JFrame("Cajero");
                             frame.setContentPane(new Cajero().caje);
-                            ingreso=true;}
+                            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                            closeLoginFrame();
+                            frame.pack();
+                            frame.setSize(400,200);
+                            frame.setVisible(true);}
                     }
                     else {
                         frame = new JFrame("Credenciales");
@@ -59,16 +68,6 @@ public class Login {
                     frame.pack();
                     frame.setSize(200, 200);
                     frame.setVisible(true);}
-                else{
-                    return;
-                }
-                if(ingreso==true){
-                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    closeLoginFrame();
-                    frame.pack();
-                    frame.setSize(400, 200);
-                    frame.setVisible(true);
-                }
             }
         });
     }

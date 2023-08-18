@@ -17,6 +17,7 @@ public class Cajero {
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.pack();
                 frame.setSize(400, 200);
+                frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
             }
         });

@@ -30,6 +30,7 @@ public class Login {
                             closeLoginFrame();
                             frame.pack();
                             frame.setSize(400,200);
+                            frame.setLocationRelativeTo(null);
                             frame.setVisible(true);}
 
                         else if (seleccionar.equals("Cajero") && cajero.equals(usuario.getText()) && contracajero.equals(new String(contrasenia.getPassword()))) {
@@ -39,6 +40,7 @@ public class Login {
                             closeLoginFrame();
                             frame.pack();
                             frame.setSize(400,200);
+                            frame.setLocationRelativeTo(null);
                             frame.setVisible(true);}}
 
                     else {
@@ -47,6 +49,7 @@ public class Login {
                         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                         frame.pack();
                         frame.setSize(200, 200);
+                        frame.setLocationRelativeTo(null);
                         frame.setVisible(true);}}
 
                 else{
@@ -55,6 +58,7 @@ public class Login {
                     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     frame.pack();
                     frame.setSize(200, 200);
+                    frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
                     hayInformacion=true;}
 
@@ -64,6 +68,7 @@ public class Login {
                     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     frame.pack();
                     frame.setSize(200, 200);
+                    frame.setLocationRelativeTo(null);
                     frame.setVisible(true);}
             }
         });
@@ -79,5 +84,6 @@ public class Login {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setSize(400, 200);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);}
 }

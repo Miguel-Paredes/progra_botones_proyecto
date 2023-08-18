@@ -20,7 +20,6 @@ public class Login {
             public void actionPerformed(ActionEvent e) {
                 seleccionar = (String) comboBox1.getSelectedItem();
                 JFrame frame;
-                boolean ingreso=false;
                 boolean hayInformacion = !usuario.getText().isEmpty();
                 if(hayInformacion==true){
                     if (admin.equals(usuario.getText()) && contradmin.equals(new String(contrasenia.getPassword())) || cajero.equals(usuario.getText()) && contracajero.equals(new String(contrasenia.getPassword()))) {

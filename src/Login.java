@@ -24,7 +24,15 @@ public class Login {
                 boolean hayInformacion = !usuario.getText().isEmpty();
                 if(hayInformacion==true){
                     if (admin.equals(usuario.getText()) && contradmin.equals(new String(contrasenia.getPassword())) || cajero.equals(usuario.getText()) && contracajero.equals(new String(contrasenia.getPassword()))) {
-                        System.out.println("hola");}
+                        if (seleccionar.equals("Administrador") && admin.equals(usuario.getText()) && contradmin.equals(new String(contrasenia.getPassword()))) {
+                            frame = new JFrame("Administrador");
+                            frame.setContentPane(new Administrador().admi);
+                            ingreso=true;}
+                        else if (seleccionar.equals("Cajero") && cajero.equals(usuario.getText()) && contracajero.equals(new String(contrasenia.getPassword()))) {
+                            frame = new JFrame("Cajero");
+                            frame.setContentPane(new Cajero().caje);
+                            ingreso=true;}
+                    }
                     else {
                         frame = new JFrame("Credenciales");
                         frame.setContentPane(new Credenciales().crede);
@@ -34,14 +42,16 @@ public class Login {
                         frame.setVisible(true);
                     }
                 }
-                if (seleccionar.equals("Administrador") && admin.equals(usuario.getText()) && contradmin.equals(new String(contrasenia.getPassword()))) {
-                    frame = new JFrame("Administrador");
-                    frame.setContentPane(new Administrador().admi);
-                    ingreso=true;}
-                else if (seleccionar.equals("Cajero") && cajero.equals(usuario.getText()) && contracajero.equals(new String(contrasenia.getPassword()))) {
-                    frame = new JFrame("Cajero");
-                    frame.setContentPane(new Cajero().caje);
-                    ingreso=true;}
+                else{
+                    frame = new JFrame("Incorrecto");
+                    frame.setContentPane(new Incorrecto().inco);
+                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frame.pack();
+                    frame.setSize(200, 200);
+                    frame.setVisible(true);
+                    hayInformacion=true;
+                }
+
                 if (seleccionar.equals("Seleccione") && hayInformacion==false){
                     frame = new JFrame("Incorrecto");
                     frame.setContentPane(new Incorrecto().inco);

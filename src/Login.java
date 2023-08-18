@@ -37,7 +37,7 @@ public class Login {
                     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     closeLoginFrame();
                     frame.pack();
-                    frame.setSize(400, 200);
+                    frame.setSize(200, 200);
                     frame.setVisible(true);
                 }
             }

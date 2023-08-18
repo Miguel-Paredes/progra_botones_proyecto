@@ -30,14 +30,14 @@ public class Login {
                     frame.setContentPane(new Incorrecto().inco);
                     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     frame.pack();
-                    frame.setSize(400, 200);
+                    frame.setSize(200, 200);
                     frame.setVisible(true);
                     return;}
                 if(ingreso==true){
                     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     closeLoginFrame();
                     frame.pack();
-                    frame.setSize(200, 200);
+                    frame.setSize(400, 200);
                     frame.setVisible(true);
                 }
             }

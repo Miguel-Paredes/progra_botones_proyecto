@@ -16,20 +16,30 @@ public class Login {
             public void actionPerformed(ActionEvent e) {
                 seleccionar = (String) comboBox1.getSelectedItem();
                 JFrame frame;
+                boolean ingreso=false;
                 if (seleccionar.equals("Administrador")) {
                     frame = new JFrame("Administrador");
-                    frame.setContentPane(new Administrador().admi);}
+                    frame.setContentPane(new Administrador().admi);
+                    ingreso=true;}
                 else if (seleccionar.equals("Cajero")) {
                     frame = new JFrame("Cajero");
-                    frame.setContentPane(new Cajero().caje);}
+                    frame.setContentPane(new Cajero().caje);
+                    ingreso=true;}
                 else {
-                    System.out.println("No ha seleccionado ninguna opcion");
+                    frame = new JFrame("Incorrecto");
+                    frame.setContentPane(new Incorrecto().inco);
+                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frame.pack();
+                    frame.setSize(400, 200);
+                    frame.setVisible(true);
                     return;}
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                closeLoginFrame();
-                frame.pack();
-                frame.setSize(400, 200);
-                frame.setVisible(true);
+                if(ingreso==true){
+                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    closeLoginFrame();
+                    frame.pack();
+                    frame.setSize(400, 200);
+                    frame.setVisible(true);
+                }
             }
         });
     }

@@ -20,8 +20,12 @@ public class Login {
             public void actionPerformed(ActionEvent e) {
                 seleccionar = (String) comboBox1.getSelectedItem();
                 JFrame frame;
-                boolean hayInformacion = !usuario.getText().isEmpty();
-                if(hayInformacion==true){
+                boolean hayInformacionUsuario = !usuario.getText().isEmpty();
+                boolean hayInformacionContrasenia = !contrasenia.getText().isEmpty();
+                System.out.println(hayInformacionUsuario);
+                System.out.println(hayInformacionContrasenia);
+                if(hayInformacionUsuario==true || hayInformacionContrasenia == true){
+
                     if (admin.equals(usuario.getText()) && contradmin.equals(new String(contrasenia.getPassword())) || cajero.equals(usuario.getText()) && contracajero.equals(new String(contrasenia.getPassword()))) {
                         if (seleccionar.equals("Administrador") && admin.equals(usuario.getText()) && contradmin.equals(new String(contrasenia.getPassword()))) {
                             frame = new JFrame("Administrador");
@@ -60,9 +64,10 @@ public class Login {
                     frame.setSize(200, 200);
                     frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
-                    hayInformacion=true;}
+                    hayInformacionUsuario=true;
+                    hayInformacionContrasenia=true;}
 
-                if (seleccionar.equals("Seleccione") && hayInformacion==false){
+                if (seleccionar.equals("Seleccione") && hayInformacionUsuario==false && hayInformacionContrasenia==false){
                     frame = new JFrame("Incorrecto");
                     frame.setContentPane(new Incorrecto().inco);
                     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -19,5 +19,8 @@ public Administrador() {
             frame.setVisible(true);
         }
     });
-}
+    }
+    private void closeLoginFrame() {
+        JFrame loginFrame = (JFrame) SwingUtilities.getWindowAncestor(admi);
+        loginFrame.dispose();}
 }

@@ -13,6 +13,7 @@ public class Cajero {
                 JFrame frame = new JFrame("Login");
                 frame.setContentPane(new conexion().JPanel);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                closeLoginFrame();
                 frame.pack();
                 frame.setSize(400,200);
                 frame.setLocationRelativeTo(null);
@@ -20,4 +21,7 @@ public class Cajero {
             }
         });
     }
+    private void closeLoginFrame() {
+        JFrame loginFrame = (JFrame) SwingUtilities.getWindowAncestor(caje);
+        loginFrame.dispose();}
 }

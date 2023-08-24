@@ -38,6 +38,7 @@
         </constraints>
         <properties>
           <model>
+            <item value="Seleccionar"/>
             <item value="Administrador"/>
             <item value="Cajero"/>
           </model>

@@ -9,10 +9,10 @@ public class Login {
     private JPasswordField contrasenia;
     private JButton entrarButton;
     private String seleccionar;
-    String admin="admin";
-    String contradmin="admin";
-    String cajero="caje";
-    String contracajero="caje";
+    private String admin="admin";
+    private String contradmin="admin";
+    private String cajero="caje";
+    private String contracajero="caje";
 
     public Login() {
         entrarButton.addActionListener(new ActionListener() {
@@ -22,8 +22,6 @@ public class Login {
                 JFrame frame;
                 boolean hayInformacionUsuario = !usuario.getText().isEmpty();
                 boolean hayInformacionContrasenia = !contrasenia.getText().isEmpty();
-                System.out.println(hayInformacionUsuario);
-                System.out.println(hayInformacionContrasenia);
                 if(hayInformacionUsuario==true || hayInformacionContrasenia == true){
 
                     if (admin.equals(usuario.getText()) && contradmin.equals(new String(contrasenia.getPassword())) || cajero.equals(usuario.getText()) && contracajero.equals(new String(contrasenia.getPassword()))) {

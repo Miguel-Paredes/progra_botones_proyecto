@@ -10,13 +10,11 @@ public Administrador() {
     regresarButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            JFrame currentFrame = (JFrame) SwingUtilities.getWindowAncestor(admi);
-            currentFrame.dispose();
             JFrame frame = new JFrame("Login");
-            frame.setContentPane(new Login().JPanel);
+            frame.setContentPane(new conexion().JPanel);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.pack();
-            frame.setSize(400, 200);
+            frame.setSize(400,200);
             frame.setLocationRelativeTo(null);
             frame.setVisible(true);
         }

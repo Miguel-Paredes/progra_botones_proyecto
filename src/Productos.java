@@ -1,4 +1,3 @@
-import javax.management.Query;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,7 +30,12 @@ public class Productos {
         agregarProductoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                agregarProducto(Integer.parseInt(idProducto.getText()),nombreProducto.getText(),descripcionProducto.getText(),Integer.parseInt(stock.getText()),Float.parseFloat(precio.getText()));
+                if(diferente(Integer.parseInt(idProducto.getText()))==false){
+                    agregarProducto(Integer.parseInt(idProducto.getText()),nombreProducto.getText(),descripcionProducto.getText(),Integer.parseInt(stock.getText()),Float.parseFloat(precio.getText()));
+                }
+                else {
+                    idProducto.setText("Numero registrado en la base");
+                }
             }
         });
 
@@ -67,18 +71,20 @@ public class Productos {
             e.printStackTrace();
         }
     }
-    public void agregarProducto(int id, String nombre, String descripcion, int stock, double precio){
-        try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)){
-            String agregar = "Insert into Producto (idProducto, nombreProducto, descripcionProducto, stock, precio) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(agregar);
-            stmt.setInt(1,id);
-            stmt.setString(2,nombre);
-            stmt.setString(3,descripcion);
-            stmt.setInt(4,stock);
-            stmt.setDouble(5,precio);
-            stmt.executeUpdate();}
-        catch (SQLException e){
-            e.printStackTrace();}}
+    public void agregarProducto(int id, String nombre, String descripcion, int stock, double precio) {
+            try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
+                String agregar = "Insert into Producto (idProducto, nombreProducto, descripcionProducto, stock, precio) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement stmt = conn.prepareStatement(agregar);
+                stmt.setInt(1, id);
+                stmt.setString(2, nombre);
+                stmt.setString(3, descripcion);
+                stmt.setInt(4, stock);
+                stmt.setDouble(5, precio);
+                stmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+    }
 
     public void actualizarProducto(int id, String nuevoNombre, String nuevaDescripcion, int nuevoStock, double nuevoPrecio){
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
@@ -94,7 +100,6 @@ public class Productos {
             e.printStackTrace();}}
 
     public void eliminarProducto(int id){
-        String delete="null";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
             String eliminar = "UPDATE Producto SET nombreProducto = NULL, descripcionProducto = NULL, stock = NULL, precio = NULL WHERE idProducto = ?";
             PreparedStatement stmt = conn.prepareStatement(eliminar);
@@ -102,6 +107,26 @@ public class Productos {
             stmt.executeUpdate();}
         catch (SQLException e) {
             e.printStackTrace();}}
+
+    public boolean diferente(int numero) {
+        boolean esDiferente = false;
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(QUERY)) {
+            while (rs.next()) {
+                int idProducto = rs.getInt("idProducto");
+                System.out.println("id: " + idProducto);
+                if (idProducto == numero) {
+                    esDiferente = true;
+                    break;}}}
+        catch (SQLException e) {
+            throw new RuntimeException(e);}
+        if (esDiferente==false){
+            System.out.println("Numero no registrado en la base de datos");}
+        else {
+            System.out.println("Numero encontrado en la base");}
+        return esDiferente;}
+
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Productos");

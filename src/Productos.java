@@ -34,7 +34,7 @@ public class Productos {
                     agregarProducto(Integer.parseInt(idProducto.getText()),nombreProducto.getText(),descripcionProducto.getText(),Integer.parseInt(stock.getText()),Float.parseFloat(precio.getText()));
                 }
                 else {
-                    idProducto.setText("Numero registrado en la base");
+                    idProducto.setText("Ese id ya lo usa otro producto");
                 }
             }
         });
@@ -115,16 +115,11 @@ public class Productos {
              ResultSet rs = stmt.executeQuery(QUERY)) {
             while (rs.next()) {
                 int idProducto = rs.getInt("idProducto");
-                System.out.println("id: " + idProducto);
                 if (idProducto == numero) {
                     esDiferente = true;
                     break;}}}
         catch (SQLException e) {
             throw new RuntimeException(e);}
-        if (esDiferente==false){
-            System.out.println("Numero no registrado en la base de datos");}
-        else {
-            System.out.println("Numero encontrado en la base");}
         return esDiferente;}
 
 

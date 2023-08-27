@@ -1,3 +1,4 @@
+import javax.management.Query;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,101 +10,105 @@ public class Productos {
     private JButton agregarProductoButton;
     private JButton actualizarProductoButton;
     private JButton eliminarProductoButton;
+    private JTextField idProducto;
+    private JTextField nombreProducto;
+    private JTextField descripcionProducto;
+    private JTextField stock;
+    private JTextField precio;
     static String DB_URL = "jdbc:mysql://localhost/medical";
     static String USER = "root";
     static String PASS = "root";
-    static String SELECT_QUERY = "SELECT * FROM producto";
-    static String INSERT_QUERY = "INSERT INTO producto (idProducto, nombreProducto, descripcionProducto, stock, precio) VALUES (?, ?, ?, ?, ?)";
-    static String UPDATE_QUERY = "UPDATE producto SET nombreProducto = ?, stock = ?, precio = ? WHERE idProducto = ?";
-    static String DELETE_QUERY = "DELETE FROM producto WHERE idProducto = ?";
+    static String QUERY = "SELECT * FROM producto";
 
     public Productos() {
         buscarProductoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                obtenerProductos();
+                buscarProducto();
             }
         });
 
         agregarProductoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                crearProducto();
+                agregarProducto(Integer.parseInt(idProducto.getText()),nombreProducto.getText(),descripcionProducto.getText(),Integer.parseInt(stock.getText()),Float.parseFloat(precio.getText()));
             }
         });
 
         actualizarProductoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                actualizarProducto();
+                actualizarProducto(Integer.parseInt(idProducto.getText()),nombreProducto.getText(),descripcionProducto.getText(),Integer.parseInt(stock.getText()),Float.parseFloat(precio.getText()));
             }
         });
 
         eliminarProductoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                eliminarProducto();
+                eliminarProducto(Integer.parseInt(idProducto.getText()));
             }
         });
     }
 
-    public void obtenerProductos() {
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(SELECT_QUERY)) {
+    public void buscarProducto(){
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
+            String buscar = "SELECT * FROM Producto";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(buscar);
             while (rs.next()) {
-                System.out.println("id: " + rs.getInt("idProducto") + ", nombre: " + rs.getString("nombreProducto"));
+                if(Integer.parseInt(idProducto.getText()) == rs.getInt("idProducto")){
+                    idProducto.setText(rs.getString("idProducto"));
+                    nombreProducto.setText(rs.getString("nombreProducto"));
+                    descripcionProducto.setText(rs.getString("descripcionProducto"));
+                    stock.setText(String.valueOf(rs.getInt("stock")));
+                    precio.setText(String.valueOf(rs.getFloat("precio")));}
             }
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
+    public void agregarProducto(int id, String nombre, String descripcion, int stock, double precio){
+        try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)){
+            String agregar = "Insert into Producto (idProducto, nombreProducto, descripcionProducto, stock, precio) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(agregar);
+            stmt.setInt(1,id);
+            stmt.setString(2,nombre);
+            stmt.setString(3,descripcion);
+            stmt.setInt(4,stock);
+            stmt.setDouble(5,precio);
+            stmt.executeUpdate();}
+        catch (SQLException e){
+            e.printStackTrace();}}
 
-    public void crearProducto() {
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement pstmt = conn.prepareStatement(INSERT_QUERY)) {
-            pstmt.setInt(1, 1); // Cambiar 1 por el ID deseado
-            pstmt.setString(2, "Nuevo producto");
-            pstmt.setString(3, "Descripción del nuevo producto");
-            pstmt.setInt(4, 10);
-            pstmt.setDouble(5, 99.99);
-            pstmt.executeUpdate();
-            System.out.println("Producto creado correctamente.");
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
+    public void actualizarProducto(int id, String nuevoNombre, String nuevaDescripcion, int nuevoStock, double nuevoPrecio){
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
+            String actualizar = "UPDATE Producto SET nombreProducto = ?, descripcionProducto = ?, stock = ?, precio = ? WHERE idProducto = ?";
+            PreparedStatement stmt = conn.prepareStatement(actualizar);
+            stmt.setString(1, nuevoNombre);
+            stmt.setString(2, nuevaDescripcion);
+            stmt.setInt(3, nuevoStock);
+            stmt.setDouble(4, nuevoPrecio);
+            stmt.setInt(5, id);
+            stmt.executeUpdate();}
+        catch (SQLException e) {
+            e.printStackTrace();}}
 
-    public void actualizarProducto() {
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement pstmt = conn.prepareStatement(UPDATE_QUERY)) {
-            pstmt.setString(1, "Producto actualizado");
-            pstmt.setInt(2, 20);
-            pstmt.setDouble(3, 109.99);
-            pstmt.setInt(4, 1); // Cambiar 1 por el ID del producto a actualizar
-            pstmt.executeUpdate();
-            System.out.println("Producto actualizado correctamente.");
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    public void eliminarProducto() {
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement pstmt = conn.prepareStatement(DELETE_QUERY)) {
-            pstmt.setInt(1, 1); // Cambiar 1 por el ID del producto a eliminar
-            pstmt.executeUpdate();
-            System.out.println("Producto eliminado correctamente.");
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
+    public void eliminarProducto(int id){
+        String delete="null";
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
+            String eliminar = "UPDATE Producto SET nombreProducto = NULL, descripcionProducto = NULL, stock = NULL, precio = NULL WHERE idProducto = ?";
+            PreparedStatement stmt = conn.prepareStatement(eliminar);
+            stmt.setInt(1, id);
+            stmt.executeUpdate();}
+        catch (SQLException e) {
+            e.printStackTrace();}}
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Productos");
         frame.setContentPane(new Productos().Productos);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setSize(1000, 450);
         frame.setVisible(true);
     }
 }
